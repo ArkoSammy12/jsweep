@@ -18,7 +18,7 @@ public class MineSweeper {
     private final MineSweeperStatusBar statusBar;
     private final MineSweeperGamePanel gamePanel;
 
-    private MineSweeperBoard board = new MineSweeperBoard(PresetDifficulty.BEGINNER);
+    private MineSweeperBoard board = new MineSweeperBoard(PresetDifficulty.EXPERT);
 
     public MineSweeper() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -43,6 +43,11 @@ public class MineSweeper {
     public void start() {
         this.jFrame.setVisible(true);
         //this.jFrame.setResizable(false);
+        this.gamePanel.onNewGame();
+    }
+
+    public void newGame() {
+        this.board = new MineSweeperBoard(this.getBoard().getGameDifficulty());
         this.gamePanel.onNewGame();
     }
 

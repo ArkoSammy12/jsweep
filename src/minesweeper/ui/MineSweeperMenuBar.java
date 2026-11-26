@@ -11,7 +11,7 @@ public class MineSweeperMenuBar extends JMenuBar {
         JMenu gameMenu = new JMenu("Juego");
 
         JMenuItem newGameItem = new JMenuItem("Nuevo Juego");
-        newGameItem.addActionListener(e -> {});
+        newGameItem.addActionListener(e -> mineSweeper.newGame());
         gameMenu.add(newGameItem);
 
         JMenuItem closeItem = new JMenuItem("Salir");

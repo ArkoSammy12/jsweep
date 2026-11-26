@@ -21,14 +21,6 @@ public abstract sealed class MineSweeperCell permits MineCell, NumberCell {
         this.y = y;
     }
 
-    public final int getX() {
-        return this.x;
-    }
-
-    public final int getY() {
-        return this.y;
-    }
-
     public final void toggleFlagged() {
         this.isFlagged = !this.isFlagged;
     }
