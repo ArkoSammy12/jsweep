@@ -18,7 +18,7 @@ public final class NumberCell extends MineSweeperCell {
 
     @Override
     public boolean isFlagged() {
-        return this.neighborMineQuantity == null ? super.isFlagged() : false;
+        return this.neighborMineQuantity == null && super.isFlagged();
     }
 
     @Override
@@ -77,8 +77,7 @@ public final class NumberCell extends MineSweeperCell {
                 case FOUR -> FIVE;
                 case FIVE -> SIX;
                 case SIX -> SEVEN;
-                case SEVEN -> EIGHT;
-                case EIGHT -> EIGHT;
+                case SEVEN, EIGHT -> EIGHT;
             };
         }
 

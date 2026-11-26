@@ -37,11 +37,11 @@ public final class MineSweeperBoard {
         }
     }
 
-    public final GameDifficulty getGameDifficulty() {
+    public GameDifficulty getGameDifficulty() {
         return this.gameDifficulty;
     }
 
-    public final MineSweeperGameState getGameState() {
+    public MineSweeperGameState getGameState() {
         return this.gameState;
     }
 
@@ -108,9 +108,9 @@ public final class MineSweeperBoard {
 
     private void updateState() {
         boolean allNumberCellsRevealed = true;
-        for (int y = 0; y < this.cells.length; y++) {
-            for (int x = 0; x < this.cells[y].length; x++) {
-                switch (this.cells[y][x]) {
+        for (MineSweeperCell[] row : this.cells) {
+            for (MineSweeperCell cell : row) {
+                switch (cell) {
                     case MineCell mineCell -> {
                         if (mineCell.isTripped()) {
                             this.gameState = MineSweeperGameState.LOST;

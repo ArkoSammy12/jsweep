@@ -47,9 +47,9 @@ public class MineSweeperGamePanel extends JPanel {
             if (this.buttons == null) {
                 return;
             }
-            for (int y = 0; y < this.buttons.length; y++) {
-                for (int x = 0; x < this.buttons[y].length; x++) {
-                    this.buttons[y][x].refresh();
+            for (MineSweeperCellButton[] row : this.buttons) {
+                for (MineSweeperCellButton button : row) {
+                    button.refresh();
                 }
             }
             this.revalidate();

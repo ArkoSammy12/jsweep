@@ -1,6 +1,5 @@
 package minesweeper;
 
-
 import javax.swing.*;
 
 import minesweeper.game.MineSweeperBoard;
