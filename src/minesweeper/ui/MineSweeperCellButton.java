@@ -20,8 +20,8 @@ import minesweeper.game.MineSweeperGameState;
 
 class MineSweeperCellButton extends JButton {
 
-    public static final Color UNPRESSED_MIDDLE_COLOR = new Color(189, 189, 189);
-    public static final Color UNPRESSED_BORDER_COLOR = new Color(123, 123, 123);
+    public static final Color UNPRESSED_MIDDLE_COLOR = new Color(189, 189, 189).darker();
+    public static final Color UNPRESSED_BORDER_COLOR = new Color(123, 123, 123).darker();
     
     public static final Color PRESSED_MIDDLE_COLOR = new Color(189, 189, 189);
     public static final Color PRESSED_BORDER_COLOR = new Color(123, 123, 123);
