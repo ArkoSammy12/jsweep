@@ -1,6 +1,7 @@
 package jsweep.ui;
 
 import jsweep.MineSweeper;
+import jsweep.game.MineSweeperGameDifficulty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,16 +32,17 @@ public final class MineSweeperFrame {
         this.jFrame.getContentPane().add(this.statusBar, BorderLayout.NORTH);
         this.jFrame.getContentPane().add(this.gamePanel);
 
-        this.jFrame.setPreferredSize(new Dimension(400, 500));
-        this.jFrame.pack();
+        this.jFrame.setResizable(false);
     }
 
     public void show() {
         this.jFrame.setVisible(true);
+        this.recalculateSize();
     }
 
     public void onNewGame() {
         this.gamePanel.resetGrid();
+        this.recalculateSize();
     }
 
     public void onCellRevealed() {
@@ -57,6 +59,19 @@ public final class MineSweeperFrame {
 
     public void close() {
         SwingUtilities.invokeLater(this.jFrame::dispose);
+    }
+
+    private void recalculateSize() {
+        MineSweeperGameDifficulty gameDifficulty = this.getMineSweeper().getGameDifficulty();
+        int gridWidth = gameDifficulty.getGridWidth();
+        int gridHeight = gameDifficulty.getGridHeight();
+
+        gridWidth *= 40;
+        gridHeight *= 40;
+
+        gridHeight += this.statusBar.getHeight();
+
+        this.jFrame.setSize(new Dimension(gridWidth, gridHeight));
     }
 
 }

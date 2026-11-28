@@ -14,7 +14,7 @@ import java.util.Optional;
 public class MineSweeper {
 
     private final MineSweeperFrame frame;
-    private MineSweeperBoard board = new MineSweeperBoard(PresetDifficulty.INTERMEDIATE);
+    private MineSweeperBoard board = new MineSweeperBoard(PresetDifficulty.BEGINNER);
 
     public MineSweeper() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
