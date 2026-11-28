@@ -42,6 +42,7 @@ public final class MineSweeperFrame {
     public void show() {
         this.jFrame.setVisible(true);
         this.recalculateSize();
+        this.jFrame.setLocationRelativeTo(null);
     }
 
     public void onNewGame() {
