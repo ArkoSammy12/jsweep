@@ -1,6 +1,7 @@
 package jsweep.ui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import jsweep.game.MineSweeperGameDifficulty;
 
@@ -13,6 +14,7 @@ final class MineSweeperGamePanel extends JPanel {
 
     MineSweeperGamePanel(MineSweeperFrame mineSweeperFrame) {
         this.mineSweeperFrame = mineSweeperFrame;
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
     MineSweeperFrame getMineSweeperFrame() {

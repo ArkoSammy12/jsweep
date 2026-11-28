@@ -21,7 +21,7 @@ public final class MineSweeperFrame {
         this.mineSweeper = mineSweeper;
         this.jFrame = new JFrame();
         this.menuBar = new MineSweeperMenuBar(this);
-        this.statusBar = new MineSweeperStatusBar();
+        this.statusBar = new MineSweeperStatusBar(this);
         this.gamePanel = new MineSweeperGamePanel(this);
 
         this.jFrame.setTitle("Buscaminas");
@@ -29,8 +29,12 @@ public final class MineSweeperFrame {
 
         this.jFrame.getContentPane().setLayout(new BorderLayout());
         this.jFrame.setJMenuBar(this.menuBar);
-        this.jFrame.getContentPane().add(this.statusBar, BorderLayout.NORTH);
-        this.jFrame.getContentPane().add(this.gamePanel);
+        this.jFrame.getContentPane().add(this.statusBar, BorderLayout.PAGE_START);
+        this.jFrame.getContentPane().add(this.gamePanel, BorderLayout.CENTER);
+
+        this.jFrame.getContentPane().setBackground(MineSweeperCellButton.PRESSED_MIDDLE_COLOR);
+        this.statusBar.setBackground(MineSweeperCellButton.PRESSED_MIDDLE_COLOR);
+        this.gamePanel.setBackground(MineSweeperCellButton.PRESSED_MIDDLE_COLOR);
 
         this.jFrame.setResizable(false);
     }
@@ -42,11 +46,13 @@ public final class MineSweeperFrame {
 
     public void onNewGame() {
         this.gamePanel.resetGrid();
+        this.statusBar.reset();
         this.recalculateSize();
     }
 
     public void onCellRevealed() {
         this.gamePanel.updateGrid();
+        this.statusBar.update();
     }
 
     public void onCellFlagged() {
