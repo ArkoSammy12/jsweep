@@ -27,7 +27,7 @@ public class MineSweeper {
     }
 
     public void newGame() {
-        this.board = new MineSweeperBoard(this.board.getGameDifficulty());
+        this.board = new MineSweeperBoard(this.frame.getSelectedDifficulty());
         this.frame.onNewGame();
     }
 

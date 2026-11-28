@@ -57,6 +57,10 @@ public final class MineSweeperFrame {
         return this.mineSweeper;
     }
 
+    public MineSweeperGameDifficulty getSelectedDifficulty() {
+        return this.menuBar.getCurrentDifficulty();
+    }
+
     public void close() {
         SwingUtilities.invokeLater(this.jFrame::dispose);
     }
