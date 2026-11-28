@@ -112,6 +112,10 @@ final class MineSweeperStatusBar extends JPanel {
         this.mineCounterPanel.setValue(this.mineCounterPanel.getValue() - 1);
     }
 
+    void stopTimer() {
+        this.secondCounterTimer.stop();
+    }
+
     private static class NumberDisplayPanel extends JPanel {
 
         private final JLabel label;
