@@ -1,4 +1,4 @@
-package minesweeper.ui;
+package jsweep.ui;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -11,14 +11,14 @@ import java.util.Optional;
 import javax.swing.DefaultButtonModel;
 import javax.swing.JButton;
 
-import minesweeper.cell.MineCell;
-import minesweeper.cell.MineSweeperCell;
-import minesweeper.cell.NumberCell;
-import minesweeper.cell.NumberCell.NeighborMineQuantity;
-import minesweeper.game.MineSweeperBoard;
-import minesweeper.game.MineSweeperGameState;
+import jsweep.MineSweeper;
+import jsweep.cell.MineCell;
+import jsweep.cell.MineSweeperCell;
+import jsweep.cell.NumberCell;
+import jsweep.cell.NumberCell.NeighborMineQuantity;
+import jsweep.game.MineSweeperGameState;
 
-class MineSweeperCellButton extends JButton {
+final class MineSweeperCellButton extends JButton {
 
     public static final Color UNPRESSED_MIDDLE_COLOR = new Color(189, 189, 189).darker();
     public static final Color UNPRESSED_BORDER_COLOR = new Color(123, 123, 123).darker();
@@ -105,30 +105,27 @@ class MineSweeperCellButton extends JButton {
                 this.pressed = false;
                 switch (e.getButton()) {
                     case MouseEvent.BUTTON1 -> { // Left click
-                        MineSweeperBoard board = panel.getMineSweeper().getBoard();
-                        if (board.getGameState().isFinished()) {
+                        MineSweeper minesweeper = panel.getMineSweeperFrame().getMineSweeper();
+                        if (minesweeper.getGameState().isFinished()) {
                             return;
                         }
-                        panel.getMineSweeper().getBoard().revealAt(x, y);
-                        if (board.getGameState() == MineSweeperGameState.LOST) {
+                        panel.getMineSweeperFrame().getMineSweeper().revealCellAt(x, y);
+                        if (minesweeper.getGameState() == MineSweeperGameState.LOST) {
                             shouldMarkLost = true;
                         }
-                        panel.refresh();
                     }
                     case MouseEvent.BUTTON3 -> { // Right click
-                        MineSweeperBoard board = panel.getMineSweeper().getBoard();
-                        if (board.getGameState().isFinished()) {
+                        MineSweeper minesweeper = panel.getMineSweeperFrame().getMineSweeper();
+                        if (minesweeper.getGameState().isFinished()) {
                             return;
                         }
-                        board.toggleFlagAt(x, y);
-                        panel.refresh();
+                        minesweeper.toggleFlagAt(x, y);
                     }
                 }
             }
 
         });
     }
-
     
     @Override
     protected void paintComponent(Graphics g) {
@@ -175,10 +172,9 @@ class MineSweeperCellButton extends JButton {
         g.setColor(this.getForeground());
         g.drawString(this.getText(), x, y);
     }
-    
 
-    public void refresh() {
-        Optional<MineSweeperCell> cell = this.panel.getMineSweeper().getBoard().getCellAt(this.x, this.y);
+    void update() {
+        Optional<MineSweeperCell> cell = this.panel.getMineSweeperFrame().getMineSweeper().getCellAt(this.x, this.y);
         if (cell.isEmpty()) {
             this.state = State.UNPRESSED_UNFLAGGED;
             this.setText("");
@@ -268,7 +264,7 @@ class MineSweeperCellButton extends JButton {
         UNPRESSED_UNFLAGGED,
         UNPRESSED_FLAGGED,
         PRESSED,
-        PRESSED_LOSING;
+        PRESSED_LOSING
     }
 
 }

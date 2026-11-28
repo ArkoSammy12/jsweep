@@ -1,6 +1,6 @@
-package minesweeper.game;
+package jsweep.game;
 
-public interface GameDifficulty {
+public interface MineSweeperGameDifficulty {
 
     int getGridWidth();
 

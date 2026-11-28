@@ -1,27 +1,23 @@
-package minesweeper;
+package jsweep.ui;
+
+import jsweep.MineSweeper;
 
 import javax.swing.*;
-
-import minesweeper.game.MineSweeperBoard;
-import minesweeper.game.PresetDifficulty;
-import minesweeper.ui.MineSweeperGamePanel;
-import minesweeper.ui.MineSweeperMenuBar;
-import minesweeper.ui.MineSweeperStatusBar;
-
 import java.awt.*;
 
-public class MineSweeper {
+public final class MineSweeperFrame {
+
+    private final MineSweeper mineSweeper;
 
     private final JFrame jFrame;
     private final MineSweeperMenuBar menuBar;
     private final MineSweeperStatusBar statusBar;
     private final MineSweeperGamePanel gamePanel;
 
-    private MineSweeperBoard board = new MineSweeperBoard(PresetDifficulty.INTERMEDIATE);
-
-    public MineSweeper() throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public MineSweeperFrame(MineSweeper mineSweeper) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
+        this.mineSweeper = mineSweeper;
         this.jFrame = new JFrame();
         this.menuBar = new MineSweeperMenuBar(this);
         this.statusBar = new MineSweeperStatusBar();
@@ -39,19 +35,24 @@ public class MineSweeper {
         this.jFrame.pack();
     }
 
-    public void start() {
+    public void show() {
         this.jFrame.setVisible(true);
-        //this.jFrame.setResizable(false);
-        this.gamePanel.onNewGame();
     }
 
-    public void newGame() {
-        this.board = new MineSweeperBoard(this.getBoard().getGameDifficulty());
-        this.gamePanel.onNewGame();
+    public void onNewGame() {
+        this.gamePanel.resetGrid();
     }
 
-    public MineSweeperBoard getBoard() {
-        return this.board;
+    public void onCellRevealed() {
+        this.gamePanel.updateGrid();
+    }
+
+    public void onCellFlagged() {
+        this.gamePanel.updateGrid();
+    }
+
+    public MineSweeper getMineSweeper() {
+        return this.mineSweeper;
     }
 
     public void close() {

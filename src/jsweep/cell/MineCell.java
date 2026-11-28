@@ -1,7 +1,7 @@
-package minesweeper.cell;
+package jsweep.cell;
 
-import minesweeper.game.GameDifficulty;
-import minesweeper.game.MineSweeperBoard;
+import jsweep.game.MineSweeperGameDifficulty;
+import jsweep.game.MineSweeperBoard;
 
 public final class MineCell extends MineSweeperCell {
 
@@ -21,9 +21,9 @@ public final class MineCell extends MineSweeperCell {
             return;
         }
         this.tripped = true;
-        GameDifficulty gameDifficulty = this.board.getGameDifficulty();
-        int gridHeight = gameDifficulty.getGridHeight();
-        int gridWidth = gameDifficulty.getGridWidth();
+        MineSweeperGameDifficulty mineSweeperGameDifficulty = this.board.getGameDifficulty();
+        int gridHeight = mineSweeperGameDifficulty.getGridHeight();
+        int gridWidth = mineSweeperGameDifficulty.getGridWidth();
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 this.board.getCellAt(x, y).ifPresent(cell -> {
@@ -34,5 +34,5 @@ public final class MineCell extends MineSweeperCell {
             }
         }
     }
-    
+
 }

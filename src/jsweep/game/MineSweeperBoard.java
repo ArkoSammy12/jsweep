@@ -1,23 +1,23 @@
-package minesweeper.game;
+package jsweep.game;
 
 import java.util.Optional;
 import java.util.Random;
 
-import minesweeper.cell.MineCell;
-import minesweeper.cell.MineSweeperCell;
-import minesweeper.cell.NumberCell;
+import jsweep.cell.MineCell;
+import jsweep.cell.MineSweeperCell;
+import jsweep.cell.NumberCell;
 
 public final class MineSweeperBoard {
 
-    private final GameDifficulty gameDifficulty;
+    private final MineSweeperGameDifficulty mineSweeperGameDifficulty;
     private MineSweeperCell[][] cells = null;
     private MineSweeperGameState gameState = MineSweeperGameState.PLAYING;
 
-    public MineSweeperBoard(GameDifficulty gameDifficulty) {
-        this.gameDifficulty = gameDifficulty;
-        int gridHeight = this.gameDifficulty.getGridHeight();
-        int gridWidth = this.gameDifficulty.getGridWidth();
-        int mineCount = this.gameDifficulty.getMineCount();
+    public MineSweeperBoard(MineSweeperGameDifficulty mineSweeperGameDifficulty) {
+        this.mineSweeperGameDifficulty = mineSweeperGameDifficulty;
+        int gridHeight = this.mineSweeperGameDifficulty.getGridHeight();
+        int gridWidth = this.mineSweeperGameDifficulty.getGridWidth();
+        int mineCount = this.mineSweeperGameDifficulty.getMineCount();
 
         if (gridHeight < 1) {
             throw new IllegalArgumentException("La cantidad de filas de la cuadricula no puede ser negativa!");
@@ -33,12 +33,12 @@ public final class MineSweeperBoard {
 
         int totalCells = gridHeight * gridWidth;
         if (totalCells - 1 - mineCount < 0) {
-            throw new IllegalArgumentException("La cantidad de minas '%d' no puede ser mayor que la cantidad total de celdas menos uno!".formatted(this.gameDifficulty.getMineCount()));
+            throw new IllegalArgumentException("La cantidad de minas '%d' no puede ser mayor que la cantidad total de celdas menos uno!".formatted(this.mineSweeperGameDifficulty.getMineCount()));
         }
     }
 
-    public GameDifficulty getGameDifficulty() {
-        return this.gameDifficulty;
+    public MineSweeperGameDifficulty getGameDifficulty() {
+        return this.mineSweeperGameDifficulty;
     }
 
     public MineSweeperGameState getGameState() {
@@ -46,14 +46,14 @@ public final class MineSweeperBoard {
     }
 
     public Optional<MineSweeperCell> getCellAt(int x, int y) {
-        if (this.cells == null || x < 0 || x >= this.gameDifficulty.getGridWidth() || y < 0 || y >= this.gameDifficulty.getGridHeight()) {
+        if (this.cells == null || x < 0 || x >= this.mineSweeperGameDifficulty.getGridWidth() || y < 0 || y >= this.mineSweeperGameDifficulty.getGridHeight()) {
             return Optional.empty();
         }
         return Optional.of(this.cells[y][x]);
     }
 
     public void toggleFlagAt(int x, int y) {
-        if (this.gameState.isFinished() || x < 0 || x >= this.gameDifficulty.getGridWidth() || y < 0 || y >= this.gameDifficulty.getGridHeight()) {
+        if (this.gameState.isFinished() || x < 0 || x >= this.mineSweeperGameDifficulty.getGridWidth() || y < 0 || y >= this.mineSweeperGameDifficulty.getGridHeight()) {
             return;
         }
 
@@ -65,7 +65,7 @@ public final class MineSweeperBoard {
     }
 
     public void revealAt(int x, int y) {
-        if (this.gameState.isFinished() || x < 0 || x >= this.gameDifficulty.getGridWidth() || y < 0 || y >= this.gameDifficulty.getGridHeight()) {
+        if (this.gameState.isFinished() || x < 0 || x >= this.mineSweeperGameDifficulty.getGridWidth() || y < 0 || y >= this.mineSweeperGameDifficulty.getGridHeight()) {
             return;
         }
 
@@ -78,10 +78,10 @@ public final class MineSweeperBoard {
     } 
 
     private void generateGrid(int x, int y) {
-        int gridHeight = this.gameDifficulty.getGridHeight();
-        int gridWidth = this.gameDifficulty.getGridWidth(); 
+        int gridHeight = this.mineSweeperGameDifficulty.getGridHeight();
+        int gridWidth = this.mineSweeperGameDifficulty.getGridWidth();
         int totalCells = gridHeight * gridWidth;
-        int mineCount = this.gameDifficulty.getMineCount();
+        int mineCount = this.mineSweeperGameDifficulty.getMineCount();
         Random random = new Random();
         double mineProbability = ((double) mineCount) / ((double) totalCells - 1);
         this.cells = new MineSweeperCell[gridHeight][gridWidth];

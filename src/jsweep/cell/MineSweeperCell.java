@@ -1,6 +1,6 @@
-package minesweeper.cell;
+package jsweep.cell;
 
-import minesweeper.game.MineSweeperBoard;
+import jsweep.game.MineSweeperBoard;
 
 public abstract sealed class MineSweeperCell permits MineCell, NumberCell {
 

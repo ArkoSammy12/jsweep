@@ -1,33 +1,30 @@
-package minesweeper.ui;
+package jsweep.ui;
 
 import javax.swing.*;
 
-import minesweeper.MineSweeper;
-import minesweeper.game.GameDifficulty;
-import minesweeper.game.MineSweeperBoard;
+import jsweep.game.MineSweeperGameDifficulty;
 
 import java.awt.*;
 
-public class MineSweeperGamePanel extends JPanel {
+final class MineSweeperGamePanel extends JPanel {
 
-    private final MineSweeper mineSweeper;
+    private final MineSweeperFrame mineSweeperFrame;
     private MineSweeperCellButton[][] buttons = null;
 
-    public MineSweeperGamePanel(MineSweeper mineSweeper) {
-        this.mineSweeper = mineSweeper;
+    MineSweeperGamePanel(MineSweeperFrame mineSweeperFrame) {
+        this.mineSweeperFrame = mineSweeperFrame;
     }
 
-    public MineSweeper getMineSweeper() {
-        return this.mineSweeper;
+    MineSweeperFrame getMineSweeperFrame() {
+        return this.mineSweeperFrame;
     }
 
-    public void onNewGame() {
+    void resetGrid() {
         SwingUtilities.invokeLater(() -> {
             this.removeAll();
-            MineSweeperBoard board = this.mineSweeper.getBoard();
-            GameDifficulty gameDifficulty = board.getGameDifficulty();
-            int gridHeight = gameDifficulty.getGridHeight();
-            int gridWidth = gameDifficulty.getGridWidth();
+            MineSweeperGameDifficulty mineSweeperGameDifficulty = this.mineSweeperFrame.getMineSweeper().getGameDifficulty();
+            int gridHeight = mineSweeperGameDifficulty.getGridHeight();
+            int gridWidth = mineSweeperGameDifficulty.getGridWidth();
             this.buttons = new MineSweeperCellButton[gridHeight][gridWidth];
             this.setLayout(new GridLayout(gridHeight, gridWidth, 0, 0));
             for (int y = 0; y < gridHeight; y++) {
@@ -42,14 +39,14 @@ public class MineSweeperGamePanel extends JPanel {
         });
     }
 
-    public void refresh() {
+    void updateGrid() {
         SwingUtilities.invokeLater(() -> {
             if (this.buttons == null) {
                 return;
             }
             for (MineSweeperCellButton[] row : this.buttons) {
                 for (MineSweeperCellButton button : row) {
-                    button.refresh();
+                    button.update();
                 }
             }
             this.revalidate();

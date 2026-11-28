@@ -1,6 +1,6 @@
-package minesweeper.game;
+package jsweep.game;
 
-public enum PresetDifficulty implements GameDifficulty {
+public enum PresetDifficulty implements MineSweeperGameDifficulty {
     BEGINNER(9, 9, 10),
     INTERMEDIATE(16, 16, 40),
     EXPERT(30, 16, 99);

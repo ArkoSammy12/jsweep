@@ -1,4 +1,4 @@
-package minesweeper.game;
+package jsweep.game;
 
 public enum MineSweeperGameState {
     PLAYING(false),

@@ -1,4 +1,4 @@
-package minesweeper;
+package jsweep;
 import javax.swing.*;
 
 public class Main {

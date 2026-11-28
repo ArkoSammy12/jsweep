@@ -1,8 +1,8 @@
-package minesweeper.cell;
+package jsweep.cell;
 
 import java.util.Optional;
 
-import minesweeper.game.MineSweeperBoard;
+import jsweep.game.MineSweeperBoard;
 
 public final class NumberCell extends MineSweeperCell {
 
@@ -82,5 +82,5 @@ public final class NumberCell extends MineSweeperCell {
         }
 
     }
-    
+
 }
