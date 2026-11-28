@@ -18,7 +18,8 @@ final class MineSweeperStatusBar extends JPanel {
     private final JButton faceButton;
     private final NumberDisplayPanel mineCounterPanel;
     private final NumberDisplayPanel secondsCounterPanel;
-    private final Timer secondCounterTimer;
+    private final Timer secondsCounterTimer;
+    private boolean timerStarted;
 
     MineSweeperStatusBar(MineSweeperFrame mineSweeperFrame) {
         super(new BorderLayout());
@@ -68,7 +69,7 @@ final class MineSweeperStatusBar extends JPanel {
         panel.add(faceButton, c);
 
         this.secondsCounterPanel = new NumberDisplayPanel();
-        this.secondCounterTimer = new Timer(1000, e -> {
+        this.secondsCounterTimer = new Timer(1000, e -> {
             if (this.secondsCounterPanel.getValue() < Integer.MAX_VALUE) {
                 this.secondsCounterPanel.setValue(this.secondsCounterPanel.getValue() + 1);
             }
@@ -85,19 +86,23 @@ final class MineSweeperStatusBar extends JPanel {
         this.faceButton.setText(SMILING_EMOJI);
         this.mineCounterPanel.setValue(this.mineSweeperFrame.getMineSweeper().getGameDifficulty().getMineCount());
         this.secondsCounterPanel.setValue(0);
-        this.secondCounterTimer.start();
+        this.timerStarted = false;
     }
 
     void update() {
+        if (!this.timerStarted && !this.secondsCounterTimer.isRunning()) {
+            this.timerStarted = true;
+            this.secondsCounterTimer.start();
+        }
         switch (this.mineSweeperFrame.getMineSweeper().getGameState()) {
             case PLAYING -> this.faceButton.setText(SMILING_EMOJI);
             case WON -> {
                 this.faceButton.setText(SUNGLASSES_EMOJI);
-                this.secondCounterTimer.stop();
+                this.secondsCounterTimer.stop();
             }
             case LOST -> {
                 this.faceButton.setText(CROSSED_OUT_EYES_EMOJI);
-                this.secondCounterTimer.stop();
+                this.secondsCounterTimer.stop();
             }
         }
     }
@@ -113,7 +118,7 @@ final class MineSweeperStatusBar extends JPanel {
     }
 
     void stopTimer() {
-        this.secondCounterTimer.stop();
+        this.secondsCounterTimer.stop();
     }
 
     private static class NumberDisplayPanel extends JPanel {
