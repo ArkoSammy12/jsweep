@@ -25,7 +25,7 @@ public final class MineSweeperFrame {
         this.gamePanel = new MineSweeperGamePanel(this);
 
         this.jFrame.setTitle("Buscaminas");
-        this.jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.jFrame.getContentPane().setLayout(new BorderLayout());
         this.jFrame.setJMenuBar(this.menuBar);
