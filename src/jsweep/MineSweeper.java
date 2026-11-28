@@ -50,7 +50,7 @@ public class MineSweeper {
 
     public void toggleFlagAt(int x, int y) {
         this.board.toggleFlagAt(x, y);
-        this.frame.onCellFlagged();
+        this.frame.onCellFlagged(x, y);
     }
 
 }

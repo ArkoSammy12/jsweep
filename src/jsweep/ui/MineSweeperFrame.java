@@ -55,8 +55,15 @@ public final class MineSweeperFrame {
         this.statusBar.update();
     }
 
-    public void onCellFlagged() {
+    public void onCellFlagged(int x, int y) {
         this.gamePanel.updateGrid();
+        this.mineSweeper.getCellAt(x, y).ifPresent(cell -> {
+            if (cell.isFlagged()) {
+                this.statusBar.decrementMineCounter();
+            } else {
+                this.statusBar.incrementMineCounter();
+            }
+        });
     }
 
     public MineSweeper getMineSweeper() {

@@ -16,6 +16,7 @@ final class MineSweeperStatusBar extends JPanel {
     private final MineSweeperFrame mineSweeperFrame;
 
     private final JButton faceButton;
+    private final NumberDisplayPanel mineCounterPanel;
     private final NumberDisplayPanel secondsCounterPanel;
     private final Timer secondCounterTimer;
 
@@ -33,12 +34,12 @@ final class MineSweeperStatusBar extends JPanel {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        NumberDisplayPanel numberDisplayPanel1 = new NumberDisplayPanel();
+        this.mineCounterPanel = new NumberDisplayPanel();
 
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 1.0 / 3.0;
-        panel.add(numberDisplayPanel1, c);
+        panel.add(this.mineCounterPanel, c);
 
         this.faceButton = new JButton(SMILING_EMOJI);
         faceButton.setBorder(new LineBorder(INNER_PANEL_COLOR, 1, false));
@@ -68,7 +69,7 @@ final class MineSweeperStatusBar extends JPanel {
 
         this.secondsCounterPanel = new NumberDisplayPanel();
         this.secondCounterTimer = new Timer(1000, e -> {
-            if (this.secondsCounterPanel.getValue() < Integer.MAX_VALUE - 1) {
+            if (this.secondsCounterPanel.getValue() < Integer.MAX_VALUE) {
                 this.secondsCounterPanel.setValue(this.secondsCounterPanel.getValue() + 1);
             }
         });
@@ -82,6 +83,7 @@ final class MineSweeperStatusBar extends JPanel {
 
     void reset() {
         this.faceButton.setText(SMILING_EMOJI);
+        this.mineCounterPanel.setValue(this.mineSweeperFrame.getMineSweeper().getGameDifficulty().getMineCount());
         this.secondsCounterPanel.setValue(0);
         this.secondCounterTimer.start();
     }
@@ -98,6 +100,16 @@ final class MineSweeperStatusBar extends JPanel {
                 this.secondCounterTimer.stop();
             }
         }
+    }
+
+    void incrementMineCounter() {
+        if (this.mineCounterPanel.getValue() < this.mineSweeperFrame.getSelectedDifficulty().getMineCount()) {
+            this.mineCounterPanel.setValue(this.mineCounterPanel.getValue() + 1);
+        }
+    }
+
+    void decrementMineCounter() {
+        this.mineCounterPanel.setValue(this.mineCounterPanel.getValue() - 1);
     }
 
     private static class NumberDisplayPanel extends JPanel {
@@ -137,10 +149,10 @@ final class MineSweeperStatusBar extends JPanel {
             if (value >= 0) {
                 toDisplay = "%03d".formatted(Math.min(this.value, 999));
             } else {
-                toDisplay = "%02d".formatted(Math.max(this.value, -99));
+                toDisplay = "-%02d".formatted(Math.min(Math.abs(this.value), 99));
             }
 
-            SwingUtilities.invokeLater(() -> this.label.setText(String.valueOf(toDisplay)));
+            SwingUtilities.invokeLater(() -> this.label.setText(toDisplay));
         }
 
     }
